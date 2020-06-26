@@ -45,6 +45,20 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript">
+      for(i = 0; i < 16; i++) {
+        var savedText = [];
+        var input = $('#input-' + i)
+        if(typeof input.val() == 'string') {
+            var txt = input.val();
+            savedText.push(txt);
+            localStorage.setItem("saved-input", JSON.stringify(savedText));
+        } else {
+            savedText.push("");
+            localStorage.setItem("saved-input", JSON.stringify(savedText));
+        }
+    }
+  </script>
     <script src="script.js"></script>
   </body>
 </html>

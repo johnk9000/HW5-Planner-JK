@@ -19,12 +19,16 @@ var noBlur = false;
 $('#currentDay').text(dateLocal + " | " + timeLocal);
 
 function loadText () {
-    
+var savedText = [];
     if(savedText !== null){
         isSaved = true;
         savedText = JSON.parse(localStorage.getItem("saved-input"));
+    } else {
+        isSaved = false;
+        localStorage.setItem("saved-input", JSON.stringify(savedText));
+        }
     }
-}
+
 
 function renderTimeBlocks() { 
         loadText();
@@ -59,19 +63,18 @@ function renderTimeBlocks() {
                     txt.addClass("present");
                 } else {
                     txt.addClass("past");
-                    
                 }
                 
                 $('#TB' + i).append(txt);
                 
                 var input = $('<textarea>')
                 input.attr("id", "input-" + i );
+
                 if(timeHr > (startHr + i)){
                 input.addClass("blur");
                 }
 
                 if(isSaved) {
-                    //console.log(savedText[i]);
                      input.text(savedText[i]);
                 }
 
@@ -84,6 +87,7 @@ function renderTimeBlocks() {
                 $('#TB' + i).append(svBtn);
 
         }
+
         if(noBlur){
             removeBlur();
         }
@@ -122,7 +126,8 @@ var savedText = [];
         savedText.push(txt);
         localStorage.setItem("saved-input", JSON.stringify(savedText));
         } else {
-            savedText.push("")
+            savedText.push("");
+            localStorage.setItem("saved-input", JSON.stringify(savedText));
         }
     }
     renderTimeBlocks()
