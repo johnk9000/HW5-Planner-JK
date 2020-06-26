@@ -8,9 +8,15 @@ var saveBlk = '<button class="saveBtn">';
 
 var isSaved = false;
 var savedText = [];
+var wrkHrs = 16;
+var startHr = 9;
 
-var timeLocal = moment().format('LT'); 
-console.log(timeLocal);
+var timeLocal = moment().format('LT');
+var dateLocal = moment().format('LD');
+var timeHr = moment().format("HH");
+var noBlur = false;
+
+$('#currentDay').text(dateLocal + " | " + timeLocal);
 
 function loadText () {
     
@@ -25,21 +31,21 @@ function renderTimeBlocks() {
 
         $('.container').empty();
             console.log('Planner Recharged');
-        for(let i = 0; i < 12; i++){
+        for(let i = 0; i < wrkHrs; i++){
             var Blk = $('<div>');
             Blk.addClass("time-block", "row");
             Blk.attr("id", "TB"+i);
             $('.container').append(Blk);
             
-            if(i < 4){
+            if(i < (12 - startHr + 1)){
                 var tBlk = $(hourBlk);
-                tBlk.text((i + 9) + "  A.M.");
-                tBlk.attr("data-time", i + 9);
+                tBlk.text((i + startHr) + "  A.M.");
+                tBlk.attr("data-time", i + startHr);
                 
                 $('#TB' + i).append(tBlk);
             } else {
                 var tBlk = $(hourBlk);
-                tBlk.text((i - 3) + "  P.M.");
+                tBlk.text((i + startHr - 12) + "  P.M.");
                 tBlk.attr("data-time", i);
                 
                 $('#TB' + i).append(tBlk);
@@ -47,14 +53,25 @@ function renderTimeBlocks() {
 
                 var txt = $(textBlk)
                 txt.attr("id", "text-"+i);
+                if(timeHr < (startHr + i)){
+                    txt.addClass("future");
+                } else if (timeHr == (startHr + i)){
+                    txt.addClass("present");
+                } else {
+                    txt.addClass("past");
+                    
+                }
                 
                 $('#TB' + i).append(txt);
                 
                 var input = $('<textarea>')
                 input.attr("id", "input-" + i );
-                
+                if(timeHr > (startHr + i)){
+                input.addClass("blur");
+                }
+
                 if(isSaved) {
-                    console.log(savedText[i]);
+                    //console.log(savedText[i]);
                      input.text(savedText[i]);
                 }
 
@@ -62,27 +79,46 @@ function renderTimeBlocks() {
 
                 var svBtn = $(saveBlk);
                 svBtn.attr("id", 'save-' + i);
+                svBtn.text("SAVE");
 
                 $('#TB' + i).append(svBtn);
 
         }
-    
-
-        //$('#TB' + i).append(txBlk);
-        //$('#TB' + i).append('<textarea>');
-        //$('#TB' + i).append('<form>');
+        if(noBlur){
+            removeBlur();
+        }
 }
 
 renderTimeBlocks();
 
+function removeBlur() {
+    for(i = 0; i < wrkHrs; i++){
+        $("#input-" + i).removeClass("blur");
+    }
+}
+
+function toggleStatus(e) {
+    var checked = e.target.checked;
+  
+    if (checked) {
+        console.log("blur on");
+        renderTimeBlocks();
+    } else {
+        noBlur = false;
+      removeBlur();
+    }
+}
+
 //Button Event Listeners
+$(document).on('click', '#status-toggle', toggleStatus)
+
 $(document).on('click', '.saveBtn', function(e) {
 var savedText = [];
-    for(i = 0; i < 12; i++){
+    for(i = 0; i < wrkHrs; i++){
         var input = $('#input-' + i)
         if(typeof input.val() == 'string') {
         var txt = input.val().trim();
-            console.log(txt);
+            //console.log(txt);
         savedText.push(txt);
         localStorage.setItem("saved-input", JSON.stringify(savedText));
         } else {
@@ -92,3 +128,5 @@ var savedText = [];
     renderTimeBlocks()
 
 });
+
+
