@@ -1,6 +1,6 @@
 ## WORK DAY PLANNER
 
-URL: johnk9000.github.com/HW5-Planner-JK/
+URL: johnk9000.github.io/HW5-Planner-JK/
 
 # Overview
 Created a dynamic planner app that will record your day's activities even if the browser is refreshed. It will erase if you exit the browser.
