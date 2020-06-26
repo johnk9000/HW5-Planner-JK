@@ -6,7 +6,23 @@ var textBlk = '<div class="past text-block">';
 var hourBlk = '<div class="hour">';
 var saveBlk = '<button class="saveBtn">';
 
+var isSaved = false;
+var savedText = [];
+
+var timeLocal = moment().format('LT'); 
+console.log(timeLocal);
+
+function loadText () {
+    
+    if(savedText !== null){
+        isSaved = true;
+        savedText = JSON.parse(localStorage.getItem("saved-input"));
+    }
+}
+
 function renderTimeBlocks() { 
+        loadText();
+
         $('.container').empty();
             console.log('Planner Recharged');
         for(let i = 0; i < 12; i++){
@@ -36,6 +52,11 @@ function renderTimeBlocks() {
                 
                 var input = $('<textarea>')
                 input.attr("id", "input-" + i );
+                
+                if(isSaved) {
+                    console.log(savedText[i]);
+                     input.text(savedText[i]);
+                }
 
                 $('#text-' + i).append(input);
 
@@ -56,25 +77,18 @@ renderTimeBlocks();
 
 //Button Event Listeners
 $(document).on('click', '.saveBtn', function(e) {
-    
+var savedText = [];
     for(i = 0; i < 12; i++){
-    
         var input = $('#input-' + i)
-        
         if(typeof input.val() == 'string') {
         var txt = input.val().trim();
-        
-        console.log(txt);
-        
-        var pTag = $('<p>');
-        pTag.text(txt);
-        $('#text-' + i).append(pTag);
+            console.log(txt);
+        savedText.push(txt);
+        localStorage.setItem("saved-input", JSON.stringify(savedText));
+        } else {
+            savedText.push("")
         }
-
-        //var input = $('<textarea>')
-        //input.attr("id", "input-" + i );
-
-        //$('#text-' + i).append(input);
     }
+    renderTimeBlocks()
 
 });
