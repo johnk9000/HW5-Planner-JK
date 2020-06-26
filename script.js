@@ -108,10 +108,11 @@ function toggleStatus(e) {
     var checked = e.target.checked;
   
     if (checked) {
+        noBlur = false;
         renderTimeBlocks();
     } else {
-        noBlur = false;
-      removeBlur();
+        noBlur = true;
+        removeBlur();
     }
 }
 
