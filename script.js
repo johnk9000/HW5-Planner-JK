@@ -104,7 +104,7 @@ function removeBlur() {
 }
 
 function toggleStatus(e) {
-    e.preventDefault()
+    //e.preventDefault()
     var checked = e.target.checked;
   
     if (checked) {
@@ -116,7 +116,7 @@ function toggleStatus(e) {
 }
 
 //Button Event Listeners
-$(document).on('click', '#status-toggle', toggleStatus)
+$(document).on('click', '#status-toggle', toggleStatus);
 
 $(document).on('click', '.saveBtn', function(e) {
     e.preventDefault()
