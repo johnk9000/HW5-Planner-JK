@@ -9,7 +9,7 @@ var saveBlk = '<button class="saveBtn">';
 var isSaved = false;
 var savedText = [];
 var wrkHrs = 16;
-var startHr = 9;
+var startHr = 8;
 
 var timeLocal = moment().format('LT');
 var dateLocal = moment().format('LD');
