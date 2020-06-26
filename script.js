@@ -16,21 +16,24 @@ var dateLocal = moment().format('LD');
 var timeHr = moment().format("HH");
 var noBlur = false;
 
+renderTimeBlocks();
+
 $('#currentDay').text(dateLocal + " | " + timeLocal);
 
 function loadText () {
-var savedText = [];
+    console.log('loading text')
+    
     if(savedText !== null){
         isSaved = true;
         savedText = JSON.parse(localStorage.getItem("saved-input"));
     } else {
         isSaved = false;
-        localStorage.setItem("saved-input", JSON.stringify(savedText));
         }
     }
 
 
 function renderTimeBlocks() { 
+        //event.preventDefault();
         loadText();
 
         $('.container').empty();
@@ -74,9 +77,9 @@ function renderTimeBlocks() {
                 input.addClass("blur");
                 }
 
-                if(isSaved) {
-                     input.text(savedText[i]);
-                }
+                
+                input.text(savedText[i]);
+                
 
                 $('#text-' + i).append(input);
 
@@ -93,7 +96,6 @@ function renderTimeBlocks() {
         }
 }
 
-renderTimeBlocks();
 
 function removeBlur() {
     for(i = 0; i < wrkHrs; i++){
@@ -102,10 +104,10 @@ function removeBlur() {
 }
 
 function toggleStatus(e) {
+    e.preventDefault()
     var checked = e.target.checked;
   
     if (checked) {
-        console.log("blur on");
         renderTimeBlocks();
     } else {
         noBlur = false;
@@ -114,17 +116,17 @@ function toggleStatus(e) {
 }
 
 //Button Event Listeners
-$(document).on('click', '#status-toggle', toggleStatus)
+//$(document).on('click', '#status-toggle', toggleStatus)
 
 $(document).on('click', '.saveBtn', function(e) {
+    e.preventDefault()
 var savedText = [];
     for(i = 0; i < wrkHrs; i++){
         var input = $('#input-' + i)
         if(typeof input.val() == 'string') {
-        var txt = input.val().trim();
-            //console.log(txt);
-        savedText.push(txt);
-        localStorage.setItem("saved-input", JSON.stringify(savedText));
+            var txt = input.val().trim();
+            savedText.push(txt);
+            localStorage.setItem("saved-input", JSON.stringify(savedText));
         } else {
             savedText.push("");
             localStorage.setItem("saved-input", JSON.stringify(savedText));
