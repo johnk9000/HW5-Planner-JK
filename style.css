@@ -1,0 +1,123 @@
+:root {
+  --hue-neutral: 187;
+  --hue-wrong: 0;
+  --hue-right: 145;
+  --hue-nav: 36;
+
+  --width-side: 120px;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+}
+
+textarea {
+  background: transparent;
+  border: none;
+  resize: none;
+  color: #000000;
+  border-left: 1px solid black;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+  color: black;
+  border-radius: 0;
+  border-bottom: 10px solid black;
+}
+
+.description{
+  white-space: pre-wrap;
+}
+
+.time-block{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-block{
+  height: 90px;
+  min-width: 75%;
+  padding: auto;
+  justify-items: center;
+  align-items: center;
+  margin: auto;
+  flex-grow: 1;
+}
+
+.container {
+  min-width: 840px;
+  justify-content: center;
+  grid-template-columns: 100px 50px 100px;
+  grid-template-rows: 80px auto 80px; 
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.row {
+  white-space: pre-wrap;
+  height: 90px;
+  border-top: 1px solid white;
+  justify-items: center;
+  
+}
+
+.column {
+  min-width: var(--width-side);
+  justify-content: center;
+  padding: 10px;
+}
+
+.hour {
+  background-color: #ffffff;
+  color: #666;
+  font-size: 1.5rem;
+  text-align: center !important; 
+  text-justify: center !important;
+  border-top: 1px dashed #000000;
+  width: 120px;
+  height: 90px;
+  padding: auto;
+  margin: 0px !important;
+}
+
+.past {
+  background-color: #d3d3d3;
+  color: white;
+}
+
+.present {
+  background-color: #ff6961;
+  color: white;
+}
+
+.future {
+  background-color: #77dd77;
+  color: white;
+}
+
+.saveBtn {
+  border-left: 1px solid black;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #06AED5;
+  color: white;
+  min-width: 90px;
+  height: 90px;
+  padding: auto;
+  margin: 0px;
+}
+
+.saveBtn i:hover {
+  font-size: 20px;
+  transition: all .3s ease-in-out;
+}
